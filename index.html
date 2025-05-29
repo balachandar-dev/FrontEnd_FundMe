@@ -5,17 +5,9 @@
 </head>
 <body>
     Hello!
-    <script>
-        async function connect() {
-        if(typeof window.ethereum != "undefined") {
-            await window.ethereum.request({method: "eth_requestAccounts"})
-            document.getElementById("connectButton").innerHTML = "Connected"
-        }
-        else {
-            document.getElementById("connectButton").innerHTML = "Metamask unavailable"
-        }
-    }
+    <script src="./index.js">
     </script>
     <button id="connectButton" onclick="connect()">Connect</button>
+    <button id="fundButton" onclick="fund()">Fund</button>
 </body>
 </html>

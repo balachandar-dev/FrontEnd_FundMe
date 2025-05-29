@@ -1,0 +1,14 @@
+{
+  "name": "frontend_fundme",
+  "version": "1.0.0",
+  "description": "Commmit 1 :  Created a simple HTMl page with button to connect to metamask",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
+}
