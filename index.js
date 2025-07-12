@@ -5,10 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const connectButton = document.getElementById("connectButton")
     const fundButton = document.getElementById("fundButton")
     const balanceButton = document.getElementById("balanceButton")
+    const withdrawButton = document.getElementById("withdrawButton")
 
     connectButton.onclick = connect
     fundButton.onclick = fund
     balanceButton.onclick = getBalance
+    withdrawButton.onclick = withdrawFund
 
     console.log(ethers)
     async function connect() {
@@ -43,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function listenToTransaction(transactionResponse, provider) {
-        return Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             provider.once(transactionResponse.hash, (transactionReceipt) => {
                 console.log("completed")
             })
@@ -56,6 +58,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const provider = new ethers.providers.Web3Provider(window.ethereum)
             const balance = await provider.getBalance(contractAddress)
             console.log("balance", ethers.utils.formatEther(balance))
+        }
+    }
+
+    async function withdrawFund() {
+        console.log("Withdrawing...")
+        if (typeof window.ethereum !== "undefined") {
+            console.log("Withdrawing...")
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner()
+            const contract = new ethers.Contract(contractAddress, abi, signer)
+            try {
+                const transactionResponse = await contract.withdraw()
+                await listenToTransaction(transactionResponse, provider)
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 })
